@@ -15,7 +15,8 @@ var app = express();
 app.use(helmet());
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox.czp9v.mongodb.net/local_library?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox.czp9v.mongodb.net/local_library?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
