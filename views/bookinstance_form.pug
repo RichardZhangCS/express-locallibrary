@@ -1,0 +1,40 @@
+extends layout 
+
+block content 
+    h1 #{title}
+
+    form(method='POST' action='')
+        .form-group 
+            label(for='book') Book
+            select#book.form-control(type='select' placeholder='Select book' name='book' required='true') 
+                each book in book_list 
+                    if bookinstance 
+                        option(
+                            value=book._id 
+                            selected=(book._id.toString()==bookinstance.book.toString()) ? 'selected' : false 
+                        ) #{book.title}
+
+                    else 
+                        option(value=book._id) #{book.title}
+            label(for='imprint') Imprint
+            input.form-control#imprint(type='text' placeholder='Lorem, 15' name='imprint' required='true' value=(bookinstance===undefined ? '' : bookinstance.imprint))
+        .form-group
+            label(for='status') Status
+            select#status.form-control(type='select' placeholder='Select status' name='status' required='true') 
+                each status in ['Available', 'Maintenance', 'Loaned', 'Reserved'] 
+                    if bookinstance 
+                        option(
+                            value=status
+                            selected=(status==bookinstance.status) ? 'selected' : false 
+                        ) #{book.title}
+                    else 
+                        option(value=status) #{status}
+            label(for='due_back') Due back: 
+            input#due_back.form-control(type='date' name='due_back' required='true' value=(undefined===bookinstance ? '' : bookinstance.due_back_formatted) )
+
+            button.btn.btn-primary(type='submit' class='mt-2') Create
+
+    if errors
+    ul
+      for error in errors
+        li!= error.msg

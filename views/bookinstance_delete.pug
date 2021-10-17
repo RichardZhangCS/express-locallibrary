@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    h1 #{title}: #{bookinstance.book.title} #{bookinstance._id}
+    p #[strong Status: ]
+        if bookinstance.status=='Available'
+            span.text-success #{bookinstance.status}
+        else if bookinstance.status=='Maintenance'
+            span.text-danger #{bookinstance.status}
+        else
+            span.text-warning #{bookinstance.status}
+
+    p Are you sure you wish to delete this book instance?
+    form(method='POST' action='')
+        div.form-group
+            input.form-control#bookinstanceid(type='hidden' required='true' name='bookinstanceid' value=bookinstance._id)
+
+        button.btn.btn-primary(type='submit') Delete
