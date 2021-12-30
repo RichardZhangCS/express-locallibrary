@@ -25,6 +25,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.13"
   }
 }
